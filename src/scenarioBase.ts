@@ -1,1 +1,1 @@
-export type AsyncScenario = () => Promise<void>
+export type Scenario<R> = () => Promise<R>

@@ -1,7 +1,8 @@
 import { request } from 'http'
+import { JSDOM } from 'jsdom'
 
-export const getPage = (url: string) =>
-  new Promise<string>((resolve, reject) => {
+export const getDOM = (url: string) =>
+  new Promise<Document>((resolve, reject) => {
     const req = request('http://example.com', (res) => {
       const data: any[] = []
 
@@ -10,7 +11,7 @@ export const getPage = (url: string) =>
         reject(`Unable to take page: ${url}`)
       })
       res.on('end', () => {
-        resolve(data.join())
+        resolve(new JSDOM(data.join()).window.document)
       })
     })
 
